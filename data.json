@@ -1,0 +1,14 @@
+{
+  "alumni": [
+    {
+      "name": "John Doe",
+      "year": "2005",
+      "degree": "B.Sc. Computer Science"
+    },
+    {
+      "name": "Jane Smith",
+      "year": "2010",
+      "degree": "M.A. Business Administration"
+    }
+  ]
+}
