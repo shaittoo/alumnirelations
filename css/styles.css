@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #FFFFFF;
 }
 
 .Loadingpage {
@@ -32,10 +33,12 @@ button {
 
 .Loadingpage .login-btn{
     margin-bottom: 10px;
+    width: 200px;
 }
 
 .Loadingpage .reg-btn{
     margin-bottom: 100px;
+    width: 200px;
 }
 
 @media (min-width: 768px) {
@@ -48,3 +51,5 @@ button {
         font-size: 17px;
     }
 }
+
+
