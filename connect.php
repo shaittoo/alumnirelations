@@ -1,17 +1,24 @@
 <?php
+$servername = "localhost";
+$username = "root";  
+$password = "";  
+$dbname = "backinup";
 
-$host = "localhost"; 
-$username = "root"; 
-$password = ""; 
-$database = "backinup"; 
-
-$conn = new mysqli($host, $username, $password, $database);
-
+$conn = new mysqli($servername, $username, $password);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}else{
-    echo "Connected succesfully";
 }
 
+$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+if ($conn->query($sql) === TRUE) {
+    echo "Database created successfully\n";
+} else {
+    echo "Error creating database: " . $conn->error;
+}
+
+$conn->select_db($dbname);
 ?>
+
+
+
