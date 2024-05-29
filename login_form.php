@@ -1,49 +1,33 @@
 <?php
-
 @include 'connect.php';
 
 session_start();
 
 if(isset($_POST['submit'])){
-
-    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
-    $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $occupation = mysqli_real_escape_string($conn, $_POST['occupation']);
-    $gradyear = mysqli_real_escape_string($conn, $_POST['gradyear']);
-    $degree = mysqli_real_escape_string($conn, $_POST['degree']);
-    $acadorg = mysqli_real_escape_string($conn, $_POST['acadorg']);
     $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
-    $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
-    $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
-    $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
-   $select = " SELECT * FROM user WHERE email = '$email' && password = '$pass' ";
-   $result = mysqli_query($conn, $select);
+    $select = "SELECT * FROM user WHERE email = '$email' AND password = '$pass'";
+    $result = mysqli_query($conn, $select);
 
-   if(mysqli_num_rows($result) > 0){
-
-      $row = mysqli_fetch_array($result);
-
-      if($row['user_type'] == 'admin'){
-
-         $_SESSION['admin_name'] = $row['name'];
-         header('location:admin_page.php');
-
-      }elseif($row['user_type'] == 'alumni'){
-
-         $_SESSION['user_name'] = $row['name'];
-         header('location:user_page.php');
-
-      }
-     
-   }else{
-      $error[] = 'incorrect email or password!';
-   }
-
-};
+    if(mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_array($result);
+        if($row['user_type'] == 'admin'){
+            echo "User type is admin";
+            $_SESSION['admin_name'] = $row['name'];
+            header('location: events_admin.php'); 
+            exit;
+        } elseif($row['user_type'] == 'user') {
+            echo "User type is user";
+            $_SESSION['user_name'] = $row['name'];
+            header('location: events_user.php');
+            exit;
+        }
+        
+    } else {
+        $error[] = 'Incorrect email or password!';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -58,8 +42,8 @@ if(isset($_POST['submit'])){
 
 <body>
     <div class="login-container">
-        <img class="logo" src="images/1.png" alt="BackinUP Logo" >
-        <form class="login-form">
+        <img class="logo" src="images/1.png" alt="BackinUP Logo">
+        <form class="login-form" action="" method="POST"> <!-- Ensure the action attribute is empty or points to the same page -->
             <h2>LOGIN</h2>
             <?php
             if(isset($error)){
@@ -76,7 +60,7 @@ if(isset($_POST['submit'])){
                 <label for="password">Password</label>
                 <input class="input" type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <button type="submit">LOGIN</button>
+            <button type="submit" name="submit">LOGIN</button>
             <div class="admin">
                 <p> Don't have an account? <a href="register_form.php">Register now</a></p>
             </div>
