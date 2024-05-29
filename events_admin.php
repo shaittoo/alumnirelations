@@ -92,5 +92,6 @@ echo "<br><a href='logout.php'>Logout</a>";
 
 echo "<br><a href='gallery.php'>Gallery</a>";
 
+
 mysqli_close($conn);
 ?>

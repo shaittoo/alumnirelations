@@ -40,3 +40,5 @@ mysqli_close($conn);
 </form>
 
 <a href="gallery.php">Gallery</a>
+
+<a href="viewProfile.php">Profile</a>
