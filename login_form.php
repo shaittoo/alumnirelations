@@ -1,4 +1,6 @@
 <?php
+@include 'connect.php';
+
 session_start();
 @include 'connect.php';
 if(isset($_POST['submit'])){
@@ -21,7 +23,6 @@ if(isset($_POST['submit'])){
             header('location: events_user.php');
             exit;
         }
-
     } else {
         $error[] = 'Incorrect email or password!';
     }
@@ -39,7 +40,7 @@ if(isset($_POST['submit'])){
 <body>
     <div class="login-container">
         <img class="logo" src="images/1.png" alt="BackinUP Logo">
-        <form class="login-form" action="" method="POST">
+        <form class="login-form" action="" method="POST"> <!-- Ensure the action attribute is empty or points to the same page -->
             <h2>LOGIN</h2>
             <?php
             if(isset($error)){
