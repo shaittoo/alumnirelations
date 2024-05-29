@@ -101,7 +101,7 @@ if (isset($_POST['update'])) {
             </div>
             <div class="input-group">
                 <label for="gradyear">Graduating Year</label>
-                <input class="input" type="text" id="gradyear" name="gradyear" placeholder="Enter your graduating year" value="<?php echo htmlspecialchars($user['grad_year']); ?>" required>
+                <input class="input" type="number" id="gradyear" name="gradyear" placeholder="Enter your graduating year" min="1947" max="2023" value="<?php echo htmlspecialchars($user['grad_year']); ?>" required>
             </div>
             <div class="input-group">
                 <label for="degree">Degree Program</label>
@@ -130,7 +130,7 @@ if (isset($_POST['update'])) {
                     <option value="5" <?php if($user['academic_org'] == '5') echo 'selected'; ?>>Elektrons</option>
                     <option value="6" <?php if($user['academic_org'] == '6') echo 'selected'; ?>>Goldies</option>
                     <option value="7" <?php if($user['academic_org'] == '7') echo 'selected'; ?>>Clovers</option>
-                    <option value="8" <?php if($user['academic_org'] == '8') echo 'selected'; ?>>Bluechips/option>
+                    <option value="8" <?php if($user['academic_org'] == '8') echo 'selected'; ?>>Bluechips</option>
                 </select>
             </div>
             <div class="input-group">

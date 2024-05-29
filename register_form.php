@@ -90,7 +90,8 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="input-group">
                 <label for="gradyear">Graduating Year</label>
-                <input class="input" type="text" id="gradyear" name="gradyear" placeholder="Enter your graduating year" required>
+                <input class="input" type="number" id="gradyear" name="gradyear" placeholder="Enter your graduating year" min="1947" max="2026" required>
+
             </div>
             <div class="input-group">
                 <label for="degree">Degree Program</label>
@@ -130,12 +131,12 @@ if(isset($_POST['submit'])) {
                 <label for="cpassword">Confirm Password</label>
                 <input class="input" type="password" id="cpassword" name="cpassword" placeholder="Confirm your password" required>
             </div>
-            <!-- <div class="input-group">
+            <div class="input-group">
                 <label for="user_type">Account Type</label>
                 <select class="input" name="user_type" required>
                     <option value="user" selected>User</option>
                 </select>
-            </div> -->
+            </div>
             <div class="input-group">
                 <label for="bio">Bio</label>
                 <input class="input" type="text" id="bio" name="bio" placeholder="Enter your bio" required>
