@@ -98,33 +98,23 @@ if(isset($_POST['submit'])) {
             <div class="input-group">
                 <label for="degree">Degree Program</label>
                 <select class="input" id="degree" name="degree" required>
-                    <option value="" disabled selected>Select your degree program</option>
+                <option value="" disabled selected>Select your degree program</option>
                     <option value="1">BA (Communication & Media Studies)</option>
-                    <option value="2">BA (Community Development)</option>
-                    <option value="3">BA (History)</option>
-                    <option value="4">BA (Sociology)</option>
-                    <option value="5">BA in Literature</option>
-                    <option value="6">BA in Political Science</option>
-                    <option value="7">BA in Psychology</option>
-                    <option value="8">BS (Biology)</option>
-                    <option value="9">BS Accountancy (4.5 yrs)</option>
-                    <option value="10">BS Applied Mathematics</option>
-                    <option value="11">BS Business Administration (Marketing)</option>
-                    <option value="12">BS Chemical Engineering</option>
-                    <option value="13">BS Chemistry</option>
-                    <option value="14">BS Computer Science</option>
-                    <option value="15">BS Economics</option>
-                    <option value="16">BS Fisheries</option>
-                    <option value="17">BS Food Technology</option>
-                    <option value="18">BS Management</option>
-                    <option value="19">BS Public Health</option>
-                    <option value="20">BS Statistics</option>
+                    <option value="2">BA in Political Science</option>
+                    <option value="3">BS (Biology)</option>
+                    <option value="4">BS Accountancy (4.5 yrs)</option>
+                    <option value="5">BS Applied Mathematics</option>
+                    <option value="6">BS Chemical Engineering</option>
+                    <option value="7">BS Computer Science</option>
+                    <option value="8">BS Fisheries</option>
+                    <option value="9">BS Food Technology</option>
+                    <option value="10">BS Statistics</option>
                 </select>
             </div>
             <div class="input-group">
                 <label for="acadorg">Academic Organization</label>
                 <select class="input" id="acadorg" name="acadorg" required>
-                    <option value="" disabled selected>Select your academic organization</option>
+                <option value="" disabled selected>Select your academic organization</option>
                     <option value="1">Skimmers</option>
                     <option value="2">Fisheries</option>
                     <option value="3">Redbolts</option>
@@ -143,20 +133,17 @@ if(isset($_POST['submit'])) {
                 <label for="cpassword">Confirm Password</label>
                 <input class="input" type="password" id="cpassword" name="cpassword" placeholder="Confirm your password" required>
             </div>
-            <!-- <div class="input-group">
+            <div class="input-group">
                 <label for="user_type">Account Type</label>
                 <select class="input" name="user_type" required>
-                    <option value="" disabled selected>Select your account type</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    <option value="user" selected>User</option>
                 </select>
-            </div> -->
+            </div>
             <div class="input-group">
                 <label for="bio">Bio</label>
                 <input class="input" type="text" id="bio" name="bio" placeholder="Enter your bio" required>
             </div>
             <button type="submit" name="submit">REGISTER</button>
-            <p>Already have an account? <a href="login_form.php">Login here</a></p>
         </form>
     </div>
 </body>
