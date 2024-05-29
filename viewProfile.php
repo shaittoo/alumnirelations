@@ -2,16 +2,28 @@
 session_start();
 @include 'connect.php';
 
-// Redirect to login page if user is not logged in
-// if (!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
-//     header('Location: login_form.php');
-//     exit;
-// }
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login_form.php');
+    exit;
+}
 
-$email = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : $_SESSION['admin_name'];
-$query = "SELECT * FROM user WHERE email='$email'";
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM user WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
+
+
+$degree_program_id = $user['degree_program'];
+$degree_program_sql = "SELECT degree_program FROM degree_programs WHERE program_id = '$degree_program_id'";
+$degree_program_result = mysqli_query($conn, $degree_program_sql);
+$degree_program_row = mysqli_fetch_assoc($degree_program_result);
+$degree_program_name = $degree_program_row ? $degree_program_row['degree_program'] : '';
+
+$academic_org_id = $user['academic_org'];
+$academic_org_sql = "SELECT organization_name FROM academic_organizations WHERE org_id = '$academic_org_id'";
+$academic_org_result = mysqli_query($conn, $academic_org_sql);
+$academic_org_row = mysqli_fetch_assoc($academic_org_result);
+$academic_org_name = $academic_org_row ? $academic_org_row['organization_name'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +47,8 @@ $user = mysqli_fetch_assoc($result);
             <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
             <p><strong>Occupation:</strong> <?php echo htmlspecialchars($user['occupation']); ?></p>
             <p><strong>Graduating Year:</strong> <?php echo htmlspecialchars($user['grad_year']); ?></p>
-            <p><strong>Degree Program:</strong> <?php echo htmlspecialchars($user['degree_program']); ?></p>
-            <p><strong>Academic Organization:</strong> <?php echo htmlspecialchars($user['academic_org']); ?></p>
+            <p><strong>Degree Program:</strong> <?php echo htmlspecialchars($degree_program_name); ?></p>
+            <p><strong>Academic Organization:</strong> <?php echo htmlspecialchars($academic_org_name); ?></p>
             <p><strong>Bio:</strong> <?php echo htmlspecialchars($user['bio']); ?></p>
         </div>
         <div class="edit-profile-link">
