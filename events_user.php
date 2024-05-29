@@ -34,6 +34,11 @@ if (mysqli_num_rows($result) > 0) {
 
 mysqli_close($conn);
 ?>
+<?php
+
+include 'header.php'
+
+?>
 
 <form action="logout.php" method="post">
     <button type="submit">Logout</button>

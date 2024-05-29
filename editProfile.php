@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -70,6 +70,48 @@
             </div>
 
             <button type="submit">SAVE</button>
+        </form>
+    </div>
+</body>
+
+</html> -->
+
+<?php
+session_start();
+@include 'connect.php';
+
+if (!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
+    header('Location: login_form.php');
+    exit;
+}
+
+$username = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : $_SESSION['admin_name'];
+$query = "SELECT * FROM user WHERE name='$username'";
+$result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
+
+if (isset($_POST['update'])) {
+    // Handle form submission to update profile
+    // Assuming similar code to what was provided in the previous response
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="css/profilestyles.css">
+</head>
+
+<body>
+    <div class="profile-container">
+        <h2>Edit Profile</h2>
+        <form class="profile-form" action="" method="POST">
+            <!-- Form fields for editing profile data -->
         </form>
     </div>
 </body>

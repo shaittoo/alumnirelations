@@ -10,7 +10,7 @@ if(!isset($_SESSION['user_id_admin'])) {
 
 // Include database connection file
 @include 'connect.php';
-
+include 'header.php'
 // Initialize error variable
 $error = '';
 
