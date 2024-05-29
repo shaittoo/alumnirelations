@@ -7,15 +7,12 @@ if(!isset($_SESSION['user_id_admin'])) {
     exit;
 }
 
-
-// Include database connection file
 @include 'connect.php';
-include 'header.php'
-// Initialize error variable
+
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
+  
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $event_date = mysqli_real_escape_string($conn, $_POST['event_date']);

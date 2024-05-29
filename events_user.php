@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 @include 'connect.php';
-include 'header.php';
 
 $sql = "SELECT e.*, COUNT(CASE WHEN ep.status = 'going' THEN 1 END) AS going_count, COUNT(CASE WHEN ep.status = 'not going' THEN 1 END) AS not_going_count
         FROM events e
@@ -35,14 +34,9 @@ if (mysqli_num_rows($result) > 0) {
 
 mysqli_close($conn);
 ?>
-<!-- <?php
-
-#include 'header.php'
-
-#?>
 
 <form action="logout.php" method="post">
     <button type="submit">Logout</button>
 </form>
 
-<a href="gallery.php">Gallery</a> -->
+<a href="gallery.php">Gallery</a>
