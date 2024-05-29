@@ -2,13 +2,14 @@
 session_start();
 @include 'connect.php';
 
-if (!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
-    header('Location: login_form.php');
-    exit;
-}
+// Redirect to login page if user is not logged in
+// if (!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
+//     header('Location: login_form.php');
+//     exit;
+// }
 
-$username = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : $_SESSION['admin_name'];
-$query = "SELECT * FROM user WHERE name='$username'";
+$email = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : $_SESSION['admin_name'];
+$query = "SELECT * FROM user WHERE email='$email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 ?>
@@ -40,6 +41,9 @@ $user = mysqli_fetch_assoc($result);
         </div>
         <div class="edit-profile-link">
             <a href="editProfile.php">Edit Profile</a>
+        </div>
+        <div class="delete-profile-link">
+            <a href="deleteProfile.php">Delete Profile</a>
         </div>
     </div>
 </body>

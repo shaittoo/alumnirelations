@@ -14,14 +14,14 @@
         <div class="logo">
             <img src="images/2.png">
             <div class="user-actions">
-                <?php 
-                if(isset($_SESSION['user_name']) || isset($_SESSION['admin_name'])): 
-                    $username = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : $_SESSION['admin_name'];
-                ?>
-                    <span>Welcome, <?php echo htmlspecialchars($username); ?>!</span>
-                <?php endif; ?>
                 <a href="events_user.php"> EVENTS </a>
                 <a href="gallery.html"> GALLERY </a>
+                <?php
+                session_start();
+                if (isset($_SESSION['user_name']) || isset($_SESSION['admin_name'])) {
+                    echo "<button onclick=\"location.href='viewProfile.php';\">View Profile</button>";
+                }
+                ?>
                 <a href="viewProfile.php"> PROFILE </a>
                 <a href="index.php"> <i class="fa-solid fa-right-from-bracket"></i> LOGOUT </a>
             </div>
