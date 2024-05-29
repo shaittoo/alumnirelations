@@ -6,8 +6,8 @@ session_start();
 
 if(isset($_POST['submit'])){
 
-    $fname = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $lname = mysqli_real_escape_string($conn, $_POST['lastname']);
+    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
+    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $contact = mysqli_real_escape_string($conn, $_POST['contact']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -15,13 +15,12 @@ if(isset($_POST['submit'])){
     $gradyear = mysqli_real_escape_string($conn, $_POST['gradyear']);
     $degree = mysqli_real_escape_string($conn, $_POST['degree']);
     $acadorg = mysqli_real_escape_string($conn, $_POST['acadorg']);
-    $pass = $_POST['password'];
-    $cpass = $_POST['cpassword'];
+    $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
+    $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
     $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
    $select = " SELECT * FROM user WHERE email = '$email' && password = '$pass' ";
-
    $result = mysqli_query($conn, $select);
 
    if(mysqli_num_rows($result) > 0){
@@ -79,7 +78,6 @@ if(isset($_POST['submit'])){
             </div>
             <button type="submit">LOGIN</button>
             <div class="admin">
-                <p> Are you an Admin? <a href="adminlogin.html">Admin Login</a></p>
                 <p> Don't have an account? <a href="register_form.php">Register now</a></p>
             </div>
         </form>
