@@ -12,18 +12,16 @@ $query = "SELECT * FROM user WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
-
 $degree_program_id = $user['degree_program'];
-$degree_program_sql = "SELECT degree_program FROM degree_programs WHERE program_id = '$degree_program_id'";
+$degree_program_sql = "SELECT dp.degree_program, ao.organization_name
+                       FROM degree_programs dp
+                       JOIN academic_organizations ao ON dp.academic_organization_id = ao.org_id
+                       WHERE dp.program_id = '$degree_program_id'";
 $degree_program_result = mysqli_query($conn, $degree_program_sql);
 $degree_program_row = mysqli_fetch_assoc($degree_program_result);
 $degree_program_name = $degree_program_row ? $degree_program_row['degree_program'] : '';
+$academic_org_name = $degree_program_row ? $degree_program_row['organization_name'] : '';
 
-$academic_org_id = $user['academic_org'];
-$academic_org_sql = "SELECT organization_name FROM academic_organizations WHERE org_id = '$academic_org_id'";
-$academic_org_result = mysqli_query($conn, $academic_org_sql);
-$academic_org_row = mysqli_fetch_assoc($academic_org_result);
-$academic_org_name = $academic_org_row ? $academic_org_row['organization_name'] : '';
 ?>
 
 <!DOCTYPE html>

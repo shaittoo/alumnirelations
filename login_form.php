@@ -3,13 +3,12 @@
 
 session_start();
 
-include 'connect.php';
 
 $error = array(); 
 
 if(isset($_POST['submit'])){
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
+    $pass = mysqli_real_escape_string($conn, $_POST['password']); 
 
     $select = "SELECT * FROM user WHERE email = '$email' AND password = '$pass'";
     $result = mysqli_query($conn, $select);
@@ -17,12 +16,10 @@ if(isset($_POST['submit'])){
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_array($result);
         if($row['user_type'] == 'admin'){
-            echo "User type is admin";
             $_SESSION['user_id_admin'] = $row['user_id'];
             header('location: events_admin.php'); 
             exit;
         } elseif($row['user_type'] == 'user') {
-            echo "User type is user";
             $_SESSION['user_id'] = $row['user_id'];
             header('location: events_user.php');
             exit;
