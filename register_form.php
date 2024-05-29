@@ -143,19 +143,20 @@ if(isset($_POST['submit'])) {
                 <label for="cpassword">Confirm Password</label>
                 <input class="input" type="password" id="cpassword" name="cpassword" placeholder="Confirm your password" required>
             </div>
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <label for="user_type">Account Type</label>
                 <select class="input" name="user_type" required>
                     <option value="" disabled selected>Select your account type</option>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
-            </div>
+            </div> -->
             <div class="input-group">
                 <label for="bio">Bio</label>
                 <input class="input" type="text" id="bio" name="bio" placeholder="Enter your bio" required>
             </div>
             <button type="submit" name="submit">REGISTER</button>
+            <p>Already have an account? <a href="login_form.php">Login here</a></p>
         </form>
     </div>
 </body>

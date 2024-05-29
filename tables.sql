@@ -9,25 +9,20 @@ CREATE TABLE degree_programs (
     FOREIGN KEY (academic_organization_id) REFERENCES academic_organizations(org_id) ON DELETE
     SET NULL
 );
-CREATE TABLE users (
+CREATE TABLE user (
     user_id int(11) NOT NULL,
-    first_name varchar(255) NOT NULL,
-    last_name varchar(255) NOT NULL,
-    address varchar(255) DEFAULT NULL,
-    contact_number varchar(20) DEFAULT NULL,
+    fname varchar(255) NOT NULL,
+    lname varchar(255) NOT NULL,
+    address varchar(255) NOT NULL,
+    contact_num varchar(20) NOT NULL,
     email varchar(255) NOT NULL,
-    occupation varchar(255) DEFAULT NULL,
-    graduating_year year(4) DEFAULT NULL,
-    degree_program_id int(11) DEFAULT NULL,
-    academic_organization_id int(11) DEFAULT NULL,
-    bio text DEFAULT NULL,
+    occupation varchar(255) NOT NULL,
+    grad_year year(4) NOT NULL,
+    degree_program varchar(255) NOT NULL,
+    academic_org varchar(255) NOT NULL,
+    bio varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
-    user_type varchar(255) DEFAULT NULL,
-    cpassword varchar(255) NOT NULL,
-    FOREIGN KEY (degree_program_id) REFERENCES degree_programs(program_id) ON DELETE
-    SET NULL,
-        FOREIGN KEY (academic_organization_id) REFERENCES academic_organizations(org_id) ON DELETE
-    SET NULL
+    user_type varchar(255) NOT NULL DEFAULT 'user'
 );
 CREATE TABLE events (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
