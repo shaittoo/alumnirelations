@@ -63,7 +63,7 @@ if(isset($_POST['submit'])){
             ?>
             <div class="input-group">
                 <label for="email">Email</label>
-                <input class="input" type="email" id="email" name="email" placeholder="Enter your email" required>
+                <input class="input" type="text" id="email" name="email" placeholder="Enter your email" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
