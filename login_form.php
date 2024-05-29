@@ -6,21 +6,21 @@ session_start();
 
 if(isset($_POST['submit'])){
 
-    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
+    $fname = mysqli_real_escape_string($conn, $_POST['firstname']);
+    $lname = mysqli_real_escape_string($conn, $_POST['lastname']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $contact = mysqli_real_escape_string($conn, $_POST['contact']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $occupation = mysqli_real_escape_string($conn, $_POST['occupation']);
     $gradyear = mysqli_real_escape_string($conn, $_POST['gradyear']);
-    $degree = $_POST['degree'];
-    $acadorg = $_POST['acadorg'];
-    $pass = md5($_POST['password']);
-    $cpass = md5($_POST['cpassword']);
-    $user_type = $_POST['user_type'];
+    $degree = mysqli_real_escape_string($conn, $_POST['degree']);
+    $acadorg = mysqli_real_escape_string($conn, $_POST['acadorg']);
+    $pass = $_POST['password'];
+    $cpass = $_POST['cpassword'];
+    $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
-   $select = " SELECT * FROM users WHERE email = '$email' && password = '$pass' ";
+   $select = " SELECT * FROM user WHERE email = '$email' && password = '$pass' ";
 
    $result = mysqli_query($conn, $select);
 
@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
          $_SESSION['admin_name'] = $row['name'];
          header('location:admin_page.php');
 
-      }elseif($row['user_type'] == 'user'){
+      }elseif($row['user_type'] == 'alumni'){
 
          $_SESSION['user_name'] = $row['name'];
          header('location:user_page.php');
@@ -62,6 +62,13 @@ if(isset($_POST['submit'])){
         <img class="logo" src="images/1.png" alt="BackinUP Logo" >
         <form class="login-form">
             <h2>LOGIN</h2>
+            <?php
+            if(isset($error)){
+                foreach($error as $error){
+                    echo '<span class="error-msg">'.$error.'</span>';
+                };
+            };
+            ?>
             <div class="input-group">
                 <label for="username">Username</label>
                 <input class="input" type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -73,6 +80,7 @@ if(isset($_POST['submit'])){
             <button type="submit">LOGIN</button>
             <div class="admin">
                 <p> Are you an Admin? <a href="adminlogin.html">Admin Login</a></p>
+                <p> Don't have an account? <a href="register_form.php">Register now</a></p>
             </div>
         </form>
     </div>

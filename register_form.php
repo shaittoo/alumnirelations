@@ -1,10 +1,14 @@
 <?php
-include 'connect.php';
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if(isset($_POST['submit'])){
+@include 'connect.php';
 
-    $fname = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $lname = mysqli_real_escape_string($conn, $_POST['lastname']);
+if(isset($_POST['submit'])) {
+    // Escape user inputs to prevent SQL injection
+    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
+    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $contact = mysqli_real_escape_string($conn, $_POST['contact']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -12,46 +16,30 @@ if(isset($_POST['submit'])){
     $gradyear = mysqli_real_escape_string($conn, $_POST['gradyear']);
     $degree = mysqli_real_escape_string($conn, $_POST['degree']);
     $acadorg = mysqli_real_escape_string($conn, $_POST['acadorg']);
-    $pass = md5($_POST['password']);
-    $cpass = md5($_POST['cpassword']);
+    $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
+    $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
     $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
-    $profilePicture = $_FILES['profilePicture'];
 
-    if ($profilePicture['error'] === 0) {
-        $profilePicName = $profilePicture['name'];
-        $profilePicTmpName = $profilePicture['tmp_name'];
-        $profilePicDestination = 'uploads/' . $profilePicName;
-        move_uploaded_file($profilePicTmpName, $profilePicDestination);
+    // Check if passwords match
+    if($pass != $cpass) {
+        $error[] = 'Passwords do not match!';
     } else {
-        $profilePicDestination = null;
-    }
+        // Check if user already exists
+        $select = "SELECT * FROM user WHERE email = '$email'";
+        $result = mysqli_query($conn, $select);
 
-    $select = "SELECT * FROM users WHERE email = '$email'";
-
-    $result = mysqli_query($conn, $select);
-
-    if(mysqli_num_rows($result) > 0){
-        $error[] = 'User already exists!';
-    } else {
-        if($pass != $cpass){
-            $error[] = 'Passwords do not match!';
+        if(mysqli_num_rows($result) > 0) {
+            $error[] = 'User already exists!';
         } else {
-            $insert = "INSERT INTO users (first_name, last_name, address, contact_number, email, occupation, graduating_year, degree_program_id, academic_organization_id, bio, password, profile_picture, user_type)
-                        VALUES ('$fname', '$lname', '$address', '$contact', '$email', '$occupation', '$gradyear', '$degree', '$acadorg', '$bio', '$pass', '$profilePicDestination', '$user_type')";
-
+            // Insert user data into the database
+            $insert = "INSERT INTO user (fname, lname, address, contact_num, email, occupation, grad_year, degree_program, academic_org, bio, password, user_type) VALUES ('$fname', '$lname', '$address', '$contact', '$email', '$occupation', '$gradyear', '$degree', '$acadorg', '$bio', '$pass', '$user_type')";
             if(mysqli_query($conn, $insert)) {
                 header('Location: login_form.php');
-                exit();
+                exit;
             } else {
-                $error[] = 'Error: '. mysqli_error($conn);
+                $error[] = 'Error: ' . mysqli_error($conn);
             }
-        }
-    }
-
-    if(isset($error)) {
-        foreach($error as $err) {
-            echo '<span class="error-msg">'.$err.'</span>';
         }
     }
 }
@@ -70,22 +58,22 @@ if(isset($_POST['submit'])){
 <body>
     <div class="register-container">
         <img class="logo" src="images/1.png" alt="BackinUP Logo">
-        <form class="register-form" action="register_form.php" method="POST" enctype="multipart/form-data">
+        <form class="register-form" action="" method="POST">
             <h2>REGISTER</h2>
             <?php
-                  if(isset($error)){
-                     foreach($error as $error){
+                if(isset($error)){
+                    foreach($error as $error){
                         echo '<span class="error-msg">'.$error.'</span>';
-                     };
-                  };
+                    };
+                };
             ?>
             <div class="input-group">
-                <label for="firstname">First Name</label>
-                <input class="input" type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+                <label for="fname">First Name</label>
+                <input class="input" type="text" id="fname" name="fname" placeholder="Enter your first name" required>
             </div>
             <div class="input-group">
-                <label for="lastname">Last Name</label>
-                <input class="input" type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+                <label for="lname">Last Name</label>
+                <input class="input" type="text" id="lname" name="lname" placeholder="Enter your last name" required>
             </div>
             <div class="input-group">
                 <label for="address">Address</label>
@@ -159,7 +147,7 @@ if(isset($_POST['submit'])){
                 <label for="user_type">Account Type</label>
                 <select class="input" name="user_type" required>
                     <option value="" disabled selected>Select your account type</option>
-                    <option value="user">Alumni</option>
+                    <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
@@ -167,12 +155,6 @@ if(isset($_POST['submit'])){
                 <label for="bio">Bio</label>
                 <input class="input" type="text" id="bio" name="bio" placeholder="Enter your bio" required>
             </div>
-            <div class="input-group">
-                <label for="profilePicture">Profile Picture</label>
-                <input class="input" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
-                <img id="preview" src="" alt="Profile Picture Preview" style="display:none; width:100px; height:100px; margin-top:10px;">
-            </div>
-
             <button type="submit" name="submit">REGISTER</button>
         </form>
     </div>
