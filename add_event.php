@@ -1,23 +1,25 @@
 <?php
 session_start();
 
-// Include database connection file
+
+if (!isset($_SESSION['user_id_admin'])) {
+    header('location: login_form.php');
+    exit;
+}
+
 @include 'connect.php';
 
-// Initialize variables
 $error = '';
 $image_path = '';
 
-// Check if form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $event_date = mysqli_real_escape_string($conn, $_POST['event_date']);
 
-    // Create the "uploads" directory if it doesn't exist
     if (!file_exists('uploads')) {
-        mkdir('uploads', 0777, true); // Creates the directory recursively with full permissions
+        mkdir('uploads', 0777, true); 
     }
 
     if (empty($name) || empty($event_date)) {
@@ -28,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $image_name = $_FILES['image']['name'];
             $image_path = 'uploads/' . $image_name; 
             if (move_uploaded_file($image_tmp_name, $image_path)) {
-                // File uploaded successfully
             } else {
                 $error = "Error uploading image.";
             }
