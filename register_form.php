@@ -1,12 +1,11 @@
 <?php
-// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 @include 'connect.php';
 
 if(isset($_POST['submit'])) {
-    // Escape user inputs to prevent SQL injection
+
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
@@ -21,18 +20,16 @@ if(isset($_POST['submit'])) {
     $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
-    // Check if passwords match
     if($pass != $cpass) {
         $error[] = 'Passwords do not match!';
     } else {
-        // Check if user already exists
+
         $select = "SELECT * FROM user WHERE email = '$email'";
         $result = mysqli_query($conn, $select);
 
         if(mysqli_num_rows($result) > 0) {
             $error[] = 'User already exists!';
         } else {
-            // Insert user data into the database
             $insert = "INSERT INTO user (fname, lname, address, contact_num, email, occupation, grad_year, degree_program, academic_org, bio, password, user_type) VALUES ('$fname', '$lname', '$address', '$contact', '$email', '$occupation', '$gradyear', '$degree', '$acadorg', '$bio', '$pass', '$user_type')";
             if(mysqli_query($conn, $insert)) {
                 header('Location: login_form.php');

@@ -5,7 +5,7 @@ session_start();
 
 include 'connect.php';
 
-$error = array(); // Initialize an empty array for errors
+$error = array(); 
 
 if(isset($_POST['submit'])){
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -18,12 +18,12 @@ if(isset($_POST['submit'])){
         $row = mysqli_fetch_array($result);
         if($row['user_type'] == 'admin'){
             echo "User type is admin";
-            $_SESSION['admin_name'] = $row['name'];
+            $_SESSION['user_id_admin'] = $row['user_id'];
             header('location: events_admin.php'); 
             exit;
         } elseif($row['user_type'] == 'user') {
             echo "User type is user";
-            $_SESSION['user_name'] = $row['name'];
+            $_SESSION['user_id'] = $row['user_id'];
             header('location: events_user.php');
             exit;
         }
@@ -47,7 +47,7 @@ if(isset($_POST['submit'])){
 <body>
     <div class="login-container">
         <img class="logo" src="images/1.png" alt="BackinUP Logo">
-        <form class="login-form" action="" method="POST"> <!-- Ensure the action attribute is empty or points to the same page -->
+        <form class="login-form" action="" method="POST"> 
             <h2>LOGIN</h2>
             <?php
             if(isset($error)){

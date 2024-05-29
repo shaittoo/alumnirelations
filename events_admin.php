@@ -1,14 +1,12 @@
 <?php
 session_start();
 
-// Check if the user is logged in and is an admin
-// You can uncomment this logic if needed in the future
-/*
-if(!isset($_SESSION['admin_name'])) {
+
+if(!isset($_SESSION['user_id_admin'])) {
     header('location: login_form.php');
     exit;
 }
-*/
+
 
 // Include database connection file
 @include 'connect.php';
@@ -16,22 +14,18 @@ if(!isset($_SESSION['admin_name'])) {
 // Initialize error variable
 $error = '';
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $event_date = mysqli_real_escape_string($conn, $_POST['event_date']);
 
-    // Check if name and date are empty
     if (empty($name) || empty($event_date)) {
         $error = "Name and date are required.";
     } else {
-        // Handle image upload
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            // Check if the "uploads" directory exists, if not, create it
             if (!file_exists('uploads')) {
-                mkdir('uploads', 0777, true); // Creates the directory recursively with full permissions
+                mkdir('uploads', 0777, true); 
             }
 
             $image_tmp_name = $_FILES['image']['tmp_name'];
@@ -45,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Image upload error.";
         }
 
-        // Insert event into the database
         if (empty($error)) {
             $sql = "INSERT INTO events (name, description, event_date, image_url) VALUES ('$name', '$description', '$event_date', '$image_path')";
             if (mysqli_query($conn, $sql)) {
@@ -58,14 +51,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch events from the database
 $sql = "SELECT e.*, COUNT(CASE WHEN ep.status = 'going' THEN 1 END) AS going_count, COUNT(CASE WHEN ep.status = 'not going' THEN 1 END) AS not_going_count 
         FROM events e 
         LEFT JOIN event_participants ep ON e.event_id = ep.event_id 
         GROUP BY e.event_id";
 $result = mysqli_query($conn, $sql);
 
-// Display events
+
 echo "<h1>ADMIN PAGE</h1>";
 echo "<h2>Events</h2>";
 echo "<table border='1'>";
@@ -84,7 +76,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 echo "</table>";
 
-// Display add event form
 echo "<h2>Add Event</h2>";
 echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post' enctype='multipart/form-data'>";
 echo "Name: <input type='text' name='name'><br>";
@@ -94,11 +85,15 @@ echo "Image: <input type='file' name='image'><br>";
 echo "<input type='submit' value='Add Event'>";
 echo "</form>";
 
-// Display error message if any
+
 if (!empty($error)) {
     echo "<p>Error: $error</p>";
 }
 
-// Close database connection
+
+echo "<br><a href='logout.php'>Logout</a>";
+
+echo "<br><a href='gallery.php'>Gallery</a>";
+
 mysqli_close($conn);
 ?>
