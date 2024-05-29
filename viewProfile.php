@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title> PROFILE</title>
     <link rel="stylesheet" href="css/registerstyles.css">
 </head>
 
@@ -12,14 +12,16 @@
     <div class="register-container">
         <img class="logo" src="images/1.png" alt="BackinUP Logo">
         <form class="register-form">
-            <h2>REGISTER</h2>
+            <h2>PROFILE</h2>
             <div class="input-group">
                 <label for="firstname">First Name</label>
-                <input class="input" type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
-            </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                <input class="input" type="text" id="firstname" name="firstname" placeholder="Enter your first name"
+                    required>
+            </div>
             <div class="input-group">
                 <label for="lastname">Last Name</label>
-                <input class="input" type="text" id="lastname" name="lastname" placeholder="Enter your last name"required>
+                <input class="input" type="text" id="lastname" name="lastname" placeholder="Enter your last name"
+                    required>
             </div>
             <div class="input-group">
                 <label for="address">Address</label>
@@ -27,7 +29,8 @@
             </div>
             <div class="input-group">
                 <label for="contact">Contact Number</label>
-                <input class="input" type="text" id="contact" name="contact" placeholder="Enter your contact number" required>
+                <input class="input" type="text" id="contact" name="contact" placeholder="Enter your contact number"
+                    required>
             </div>
             <div class="input-group">
                 <label for="email">Email</label>
@@ -35,11 +38,13 @@
             </div>
             <div class="input-group">
                 <label for="occupation">Occupation</label>
-                <input class="input" type="text" id="occupation" name="occupation" placeholder="Enter your occupation" required>
+                <input class="input" type="text" id="occupation" name="occupation" placeholder="Enter your occupation"
+                    required>
             </div>
             <div class="input-group">
                 <label for="gradyear">Graduating Year</label>
-                <input class="input" type="text" id="gradyear" name="gradyear" placeholder="Enter your graduating year" required>
+                <input class="input" type="text" id="gradyear" name="gradyear" placeholder="Enter your graduating year"
+                    required>
             </div>
             <div class="input-group">
                 <label for="degree">Degree Program</label>
@@ -60,10 +65,11 @@
             <div class="input-group">
                 <label for="profilePicture">Profile Picture</label>
                 <input class="input" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
-                <img id="preview" src="" alt="Profile Picture Preview" style="display:none; width:100px; height:100px; margin-top:10px;">
+                <img id="preview" src="" alt="Profile Picture Preview"
+                    style="display:none; width:100px; height:100px; margin-top:10px;">
             </div>
 
-            <button type="submit">REGISTER</button>
+            <button type="submit">LOGOUT</button>
         </form>
     </div>
 </body>

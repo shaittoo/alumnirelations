@@ -69,10 +69,8 @@ button:hover {
     margin-top: -30px;
 }
 
-.admin{
+.admin p{
     font-size: smaller;
     text-align: center;
     margin-top: 4px;
-    color: #23AF39;
-    text-decoration:underline;
 }
