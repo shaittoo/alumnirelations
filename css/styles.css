@@ -20,7 +20,7 @@ body {
     margin-bottom: 20px;
 }
 
-button {
+button{
     padding: 8px 30px;
     font-size: 16px;
     background-color: #FF914D;
@@ -34,13 +34,16 @@ button {
 .Loadingpage .login-btn{
     margin-bottom: 10px;
     width: 200px;
+    color: white;
 }
 
 .Loadingpage .reg-btn{
     margin-bottom: 100px;
     width: 200px;
 }
-
+.Loadingpage .login-btn a{
+    text-decoration: none;
+}
 @media (min-width: 768px) {
     .Loadingpage {
         max-width: 1000px;

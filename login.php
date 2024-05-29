@@ -23,7 +23,7 @@
             </div>
             <button type="submit">LOGIN</button>
             <div class="admin">
-                <p>Admin Login</p>
+                <p> Are you an Admin? <a href="adminlogin.html">Admin Login</a></p>
             </div>
         </form>
     </div>

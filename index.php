@@ -9,8 +9,8 @@
 <body>
     <div class="Loadingpage">
         <img src="images/1.png" alt="BackinUP Logo" class="Loadingpage">
-        <button class="login-btn"> LOG IN </button>
-        <button class="reg-btn">REGISTER</button>
+        <button class="login-btn"> <a href="login.php">LOG IN </a></button>
+        <button class="reg-btn"> <a href="registration.php">REGISTER </a></button>
     </div>
 </body>
 </html>
