@@ -3,6 +3,10 @@
 
 session_start();
 
+include 'connect.php';
+
+$error = array(); // Initialize an empty array for errors
+
 if(isset($_POST['submit'])){
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
@@ -49,8 +53,8 @@ if(isset($_POST['submit'])){
             if(isset($error)){
                 foreach($error as $error){
                     echo '<span class="error-msg">'.$error.'</span>';
-                };
-            };
+                }
+            }
             ?>
             <div class="input-group">
                 <label for="email">Email</label>
@@ -61,6 +65,7 @@ if(isset($_POST['submit'])){
                 <input class="input" type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <button type="submit" name="submit">LOGIN</button>
+            <button type="submit" name="submit">LOGIN</button>
             <div class="admin">
                 <p> Don't have an account? <a href="register_form.php">Register now</a></p>
             </div>
@@ -69,3 +74,4 @@ if(isset($_POST['submit'])){
 </body>
 
 </html>
+
