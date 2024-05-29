@@ -1,49 +1,42 @@
 <?php
 
-@include 'connect.php';
-
 session_start();
+
+include 'connect.php';
+
+$error = array(); // Initialize an empty array for errors
 
 if(isset($_POST['submit'])){
 
-    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-    $lname = mysqli_real_escape_string($conn, $_POST['lname']);
-    $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $occupation = mysqli_real_escape_string($conn, $_POST['occupation']);
-    $gradyear = mysqli_real_escape_string($conn, $_POST['gradyear']);
-    $degree = mysqli_real_escape_string($conn, $_POST['degree']);
-    $acadorg = mysqli_real_escape_string($conn, $_POST['acadorg']);
     $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
-    $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
-    $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
-    $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
-   $select = " SELECT * FROM user WHERE email = '$email' && password = '$pass' ";
-   $result = mysqli_query($conn, $select);
+    $select = "SELECT * FROM user WHERE email = '$email'";
+    $result = mysqli_query($conn, $select);
 
-   if(mysqli_num_rows($result) > 0){
+    if(mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_assoc($result);
 
-      $row = mysqli_fetch_array($result);
+        // Verify password
+        if(password_verify($pass, $row['password'])){
 
-      if($row['user_type'] == 'admin'){
+            if($row['user_type'] == 'admin'){
+                $_SESSION['admin_name'] = $row['name'];
+                header('location:admin_page.php');
+                exit();
+            }elseif($row['user_type'] == 'alumni'){
+                $_SESSION['user_name'] = $row['name'];
+                header('location:user_page.php');
+                exit();
+            }
+        } else {
+            $error[] = 'Incorrect email or password!';
+        }
+    } else {
+        $error[] = 'User not found!';
+    }
+}
 
-         $_SESSION['admin_name'] = $row['name'];
-         header('location:admin_page.php');
-
-      }elseif($row['user_type'] == 'alumni'){
-
-         $_SESSION['user_name'] = $row['name'];
-         header('location:user_page.php');
-
-      }
-     
-   }else{
-      $error[] = 'incorrect email or password!';
-   }
-
-};
 ?>
 
 <!DOCTYPE html>
@@ -58,25 +51,25 @@ if(isset($_POST['submit'])){
 
 <body>
     <div class="login-container">
-        <img class="logo" src="images/1.png" alt="BackinUP Logo" >
-        <form class="login-form">
+        <img class="logo" src="images/1.png" alt="BackinUP Logo">
+        <form class="login-form" action="" method="POST">
             <h2>LOGIN</h2>
             <?php
             if(isset($error)){
                 foreach($error as $error){
                     echo '<span class="error-msg">'.$error.'</span>';
-                };
-            };
+                }
+            }
             ?>
             <div class="input-group">
-                <label for="username">Username</label>
-                <input class="input" type="text" id="username" name="username" placeholder="Enter your username" required>
+                <label for="email">Email</label>
+                <input class="input" type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
                 <input class="input" type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <button type="submit">LOGIN</button>
+            <button type="submit" name="submit">LOGIN</button>
             <div class="admin">
                 <p> Don't have an account? <a href="register_form.php">Register now</a></p>
             </div>
