@@ -12,7 +12,7 @@ if(!isset($_SESSION['admin_name'])) {
 
 // Include database connection file
 @include 'connect.php';
-
+include 'header.php'
 // Initialize error variable
 $error = '';
 
