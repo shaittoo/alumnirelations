@@ -12,6 +12,11 @@ session_start();
 
 // If the user is logged in and not an admin, display the HTML content for the user events page
 ?>
+<?php
+
+include 'header.php'
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
