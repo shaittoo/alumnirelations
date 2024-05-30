@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
     $gradyear = mysqli_real_escape_string($conn, $_POST['gradyear']);
     $degree = mysqli_real_escape_string($conn, $_POST['degree']);
     $acadorg = mysqli_real_escape_string($conn, $_POST['acadorg']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
+    $pass = mysqli_real_escape_string($conn, $_POST['password']); 
     $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
     $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
