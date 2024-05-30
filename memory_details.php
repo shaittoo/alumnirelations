@@ -5,13 +5,12 @@ session_start();
 
 $memory_id = mysqli_real_escape_string($conn, $_GET['id']);
 
-
 if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_id_admin'])) {
     header('Location: gallery.php');
     exit;
 }
 
-$user_id = isset($_SESSION['user_id_admin']) ? $_SESSION['user_id_admin'] : $_SESSION['user_id'];
+$user_id = isset($_SESSION['user_id_admin']) ? $_SESSION['user_id_admin'] : (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null);
 
 $sql = "SELECT m.memory_id, m.image_url, m.memory_date, m.description, g.batch_year, u.fname, u.lname, m.uploader_id
         FROM memories m
@@ -45,12 +44,13 @@ if (mysqli_num_rows($result) > 0) {
     <p>Batch: <?php echo $memory['batch_year']; ?></p>
     <p>Uploader: <?php echo $memory['fname'] . " " . $memory['lname']; ?></p>
 
-    <?php if ($memory['uploader_id'] == $user_id): ?>
-        <form action="delete_memory.php" method="post">
-            <input type="hidden" name="memory_id" value="<?php echo $memory_id; ?>">
-            <button type="submit">Delete</button>
-        </form>
-    <?php endif; ?>
+    <?php if (isset($_SESSION['user_id_admin']) || (isset($_SESSION['user_id']) && $memory['uploader_id'] == $user_id)): ?>
+    <form action="delete_memory.php" method="post">
+        <input type="hidden" name="memory_id" value="<?php echo $memory_id; ?>">
+        <button type="submit">Delete</button>
+    </form>
+<?php endif; ?>
+
 
     <a href="gallery.php">Back to Gallery</a>
 </body>
