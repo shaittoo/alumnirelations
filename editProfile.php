@@ -101,7 +101,7 @@ if (isset($_POST['update'])) {
             </div>
             <div class="input-group">
                 <label for="gradyear">Graduating Year</label>
-                <input class="input" type="number" id="gradyear" name="gradyear" placeholder="Enter your graduating year" min="1947" max="2023" value="<?php echo htmlspecialchars($user['grad_year']); ?>" required>
+                <input class="input" type="number" id="gradyear" name="gradyear" placeholder="Enter your graduating year" min="1947" max="2026" value="<?php echo htmlspecialchars($user['grad_year']); ?>" required>
             </div>
             <div class="input-group">
                 <label for="degree">Degree Program</label>

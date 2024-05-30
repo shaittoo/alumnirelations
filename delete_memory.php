@@ -26,7 +26,7 @@ if (mysqli_num_rows($result) > 0) {
 
         $sql = "DELETE FROM memories WHERE memory_id = '$memory_id'";
         if (mysqli_query($conn, $sql)) {
-          
+
             $gallery_id = $memory['gallery_id'];
             $sql = "SELECT COUNT(*) AS memory_count FROM memories WHERE gallery_id = '$gallery_id'";
             $result = mysqli_query($conn, $sql);
