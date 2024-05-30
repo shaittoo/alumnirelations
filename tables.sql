@@ -102,8 +102,7 @@ CREATE TABLE `user` (
 -- Insert data into `user` table
 INSERT INTO `user` (`user_id`, `fname`, `lname`, `address`, `contact_num`, `email`, `occupation`, `grad_year`, `degree_program`, `academic_org`, `bio`, `password`, `user_type`, `status`) VALUES
 (1, 'Shaina', 'Talisay', 'General Santos City', '09454038207', 'shaina@gmail.com', 'Student', '2026', '7', '5', 'Hello', 'shaina', 'user', 'pending'),
-(12, 'Shaina', 'Talisay', 'General Santos City', '09454038207', 'shaina@gmail.com', 'Student', '2026', '7', '5', 'Hello', 'shaina', 'admin', 'approved'),
-(13, 'sda', 'sda', 'sadas', '213873212', 'sadh@hsdj.com', 'sad', '2131', '1', '2', 'sajha', 'shaina', 'admin', 'approved');
+(12, 'Admin', 'Admin', 'Admin City', '09454038207', 'admin@gmail.com', 'Student', '1999', '7', '5', 'Hello', 'admin', 'admin', 'approved'),
 
 CREATE TABLE `memories` (
   `memory_id` int(11) NOT NULL  AUTO_INCREMENT,
