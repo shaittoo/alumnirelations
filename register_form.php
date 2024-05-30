@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 @include 'connect.php';
 
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
 
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
@@ -20,18 +20,19 @@ if(isset($_POST['submit'])) {
     $user_type = mysqli_real_escape_string($conn, $_POST['user_type']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
-    if($pass != $cpass) {
+    if ($pass != $cpass) {
         $error[] = 'Passwords do not match!';
     } else {
 
         $select = "SELECT * FROM user WHERE email = '$email'";
         $result = mysqli_query($conn, $select);
 
-        if(mysqli_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) {
             $error[] = 'User already exists!';
         } else {
-            $insert = "INSERT INTO user (fname, lname, address, contact_num, email, occupation, grad_year, degree_program, academic_org, bio, password, user_type) VALUES ('$fname', '$lname', '$address', '$contact', '$email', '$occupation', '$gradyear', '$degree', '$acadorg', '$bio', '$pass', '$user_type')";
-            if(mysqli_query($conn, $insert)) {
+            $insert_user = "INSERT INTO user (fname, lname, address, contact_num, email, occupation, grad_year, degree_program, academic_org, bio, password, user_type, status) 
+                            VALUES ('$fname', '$lname', '$address', '$contact', '$email', '$occupation', '$gradyear', '$degree', '$acadorg', '$bio', '$pass', '$user_type', 'pending')";
+            if (mysqli_query($conn, $insert_user)) {
                 header('Location: login_form.php');
                 exit;
             } else {
@@ -90,7 +91,8 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="input-group">
                 <label for="gradyear">Graduating Year</label>
-                <input class="input" type="text" id="gradyear" name="gradyear" placeholder="Enter your graduating year" required>
+                <input class="input" type="number" id="gradyear" name="gradyear" placeholder="Enter your graduating year" min="1947" max="2026" required>
+
             </div>
             <div class="input-group">
                 <label for="degree">Degree Program</label>
@@ -130,12 +132,12 @@ if(isset($_POST['submit'])) {
                 <label for="cpassword">Confirm Password</label>
                 <input class="input" type="password" id="cpassword" name="cpassword" placeholder="Confirm your password" required>
             </div>
-            <!-- <div class="input-group">
+            <div class="input-group">
                 <label for="user_type">Account Type</label>
                 <select class="input" name="user_type" required>
                     <option value="user" selected>User</option>
                 </select>
-            </div> -->
+            </div>
             <div class="input-group">
                 <label for="bio">Bio</label>
                 <input class="input" type="text" id="bio" name="bio" placeholder="Enter your bio" required>

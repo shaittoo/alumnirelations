@@ -1,17 +1,23 @@
 <?php
+session_start();
 include 'connect.php';
 
-if (isset($_POST['delete'])) {
-    $id = $_POST['id'];
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login_form.php');
+    exit;
+}
 
-    $sql = "DELETE FROM user WHERE id=$id";
+    $user_id = $_SESSION['user_id'];
+    $sql = "DELETE FROM user WHERE user_id='$user_id'";
+    
 
     if ($conn->query($sql) === TRUE) {
-        echo "Record deleted successfully";
+        header('Location: logout.php');
+        exit;
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error deleting record: " . $conn->error;
     }
 
     $conn->close();
-}
+
 ?>

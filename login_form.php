@@ -3,31 +3,32 @@
 
 session_start();
 
-include 'connect.php';
-
 $error = array(); 
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']); // Escaping password too
+    $pass = mysqli_real_escape_string($conn, $_POST['password']); 
 
     $select = "SELECT * FROM user WHERE email = '$email' AND password = '$pass'";
     $result = mysqli_query($conn, $select);
 
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_array($result);
-        if($row['user_type'] == 'admin'){
-            echo "User type is admin";
+        if ($row['user_type'] == 'admin') {
             $_SESSION['user_id_admin'] = $row['user_id'];
             header('location: events_admin.php'); 
             exit;
-        } elseif($row['user_type'] == 'user') {
-            echo "User type is user";
-            $_SESSION['user_id'] = $row['user_id'];
-            header('location: events_user.php');
-            exit;
+        } elseif ($row['user_type'] == 'user') {
+            if ($row['status'] == 'approved') {  
+                $_SESSION['user_id'] = $row['user_id'];
+                header('location: events_user.php');
+                exit;
+            } elseif ($row['status'] == 'pending') {
+                $error[] = 'Your account is not approved yet.';
+            }else{
+                $error[] = 'Your registration has been rejected.';
+            }
         }
-        
     } else {
         $error[] = 'Incorrect email or password!';
     }
@@ -50,9 +51,9 @@ if(isset($_POST['submit'])){
         <form class="login-form" action="" method="POST"> 
             <h2>LOGIN</h2>
             <?php
-            if(isset($error)){
-                foreach($error as $error){
-                    echo '<span class="error-msg">'.$error.'</span>';
+            if (isset($error)) {
+                foreach ($error as $error) {
+                    echo '<span class="error-msg">' . $error . '</span>';
                 }
             }
             ?>
@@ -73,4 +74,3 @@ if(isset($_POST['submit'])){
 </body>
 
 </html>
-

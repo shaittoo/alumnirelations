@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) && $_SESSION['status'] !== 'approved') {
     header('location: login_form.php');
     exit;
 }
@@ -40,3 +40,5 @@ mysqli_close($conn);
 </form>
 
 <a href="gallery.php">Gallery</a>
+
+<a href="viewProfile.php">Profile</a>
